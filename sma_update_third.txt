@@ -1,0 +1,19 @@
+long_position=0
+sell_position=0
+
+for index,today in data.iterrows():
+    previous_day=data.iloc[index-1]
+   
+    if (previous_day['Adj Close']<previous_day['sma50'])&(today['Adj Close']>today['sma50'])&((long_position==0)|(sell_position==1)):
+        entry_price=today['Adj Close']
+        print("Buy or Sell Exit")
+        print(entry_price)
+        long_position=1
+        sell_position=0
+        
+    elif(previous_day['Adj Close']>previous_day['sma50'])&(today['Adj Close']<today['sma50'])&((long_position==1)|(sell_position==0)):
+        exit_price=today["Adj Close"]
+        print("Sell or Buy Exit")   
+        print(exit_price)
+        long_position=0
+        sell_position=1
